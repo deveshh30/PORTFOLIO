@@ -1,6 +1,7 @@
 import Hero from "../components/layouts/Hero";
 import ProjectCard from "../components/ui/ProjectCard";
-import { projects } from '../data/project';
+import { projectsData as projects } from '../data/project';
+import Skills from "../components/layouts/Skills";
 
 const Home = () => {
     return (
@@ -25,6 +26,9 @@ const Home = () => {
                     ))}
                     </div>
             </div>
+            </section>
+            <section>
+                <Skills/>
             </section>
         </div>
     )
