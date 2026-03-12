@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface NavLinkProps {
   href: string;
@@ -17,21 +17,30 @@ const NavLink = ({ href, label, onClick, className = '' }: NavLinkProps) => (
     href={href}
     onClick={onClick}
     className={`
-      text-gray-300 hover:text-white 
+      text-zinc-400 hover:text-white 
       transition-colors duration-200
-      px-3 py-2 rounded-md
-      hover:bg-gray-800/60
+      text-sm font-medium tracking-wide
+      relative group
       ${className}
-      ${href === window.location.hash ? 'text-white bg-gray-800/70' : ''}
     `}
     aria-current={href === window.location.hash ? 'page' : undefined}
   >
     {label}
+    <span className="absolute -bottom-1 left-0 w-0 h-px bg-white group-hover:w-full transition-all duration-300" />
   </a>
 );
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems: NavItem[] = [
     { label: 'About', href: '#about' },
@@ -45,73 +54,58 @@ const Navbar = () => {
 
   return (
     <nav
-      className="
+      className={`
         fixed top-0 left-0 right-0 z-50
-        bg-gray-900/85 backdrop-blur-md
-        border-b border-gray-800/70
         transition-all duration-300
-      "
+        ${scrolled ? 'bg-black/90 border-b border-zinc-800/50' : 'bg-transparent'}
+      `}
     >
-      {/* This container gives left & right breathing room */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+      <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between items-center h-16">
-          {/* Logo with natural left padding from container */}
-          <div className="flex-shrink-0">
-            <a
-              href="/"
-              className="
-                font-['Manrope']
-                tracking-[0.04em]
-                text-3xl md:text-4xl
-                font-extrabold text-white
-                transition-opacity duration-300 hover:opacity-90
-              "
-            >
-              Devesh
-            </a>
-          </div>
+          {/* Logo */}
+          <a
+            href="/"
+            className="text-white font-bold text-xl tracking-tight hover:opacity-80 transition-opacity"
+          >
+            Devesh<span className="text-blue-500">.</span>
+          </a>
 
           {/* Desktop links */}
-          <div className="hidden md:flex md:items-center md:gap-10 lg:gap-12">
+          <div className="hidden md:flex md:items-center md:gap-8">
             {navItems.map((item) => (
               <NavLink key={item.href} {...item} />
             ))}
+            <a
+              href="#contact"
+              className="ml-4 px-5 py-2 text-sm font-medium text-black bg-white rounded-md hover:bg-zinc-200 transition-colors"
+            >
+              Hire Me
+            </a>
           </div>
 
-          {/* Hamburger (mobile only) */}
-          <div className="md:hidden">
-            <button
-              type="button"
-              className="
-                inline-flex items-center justify-center p-2 
-                rounded-md text-gray-400 
-                hover:text-white hover:bg-gray-800/60
-                focus:outline-none focus:ring-2 focus:ring-white/50
-              "
-              aria-controls="mobile-menu"
-              aria-expanded={isOpen}
-              onClick={toggleMenu}
+          {/* Hamburger (mobile) */}
+          <button
+            type="button"
+            className="md:hidden p-2 text-zinc-400 hover:text-white transition-colors"
+            aria-controls="mobile-menu"
+            aria-expanded={isOpen}
+            onClick={toggleMenu}
+          >
+            <span className="sr-only">Toggle menu</span>
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
             >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className={`h-7 w-7 transition-transform duration-300 ${isOpen ? 'rotate-90' : ''}`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                {isOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 18h16" />
-                  </>
-                )}
-              </svg>
-            </button>
-          </div>
+              {isOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -119,19 +113,28 @@ const Navbar = () => {
       <div
         id="mobile-menu"
         className={`
-          md:hidden overflow-hidden transition-all duration-300 ease-in-out
-          ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}
+          md:hidden overflow-hidden transition-all duration-300
+          ${isOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}
         `}
       >
-        <div className="px-4 py-5 space-y-3 bg-gray-900/95 border-t border-gray-800">
+        <div className="px-6 py-4 space-y-1 bg-black border-t border-zinc-800/50">
           {navItems.map((item) => (
-            <NavLink
+            <a
               key={item.href}
-              {...item}
+              href={item.href}
               onClick={closeMenu}
-              className="block w-full text-left text-lg py-3 px-4 rounded-lg hover:bg-gray-800/70"
-            />
+              className="block py-3 text-zinc-400 hover:text-white text-sm font-medium transition-colors"
+            >
+              {item.label}
+            </a>
           ))}
+          <a
+            href="#contact"
+            onClick={closeMenu}
+            className="block mt-4 py-3 text-center text-sm font-medium text-black bg-white rounded-md hover:bg-zinc-200 transition-colors"
+          >
+            Hire Me
+          </a>
         </div>
       </div>
     </nav>
