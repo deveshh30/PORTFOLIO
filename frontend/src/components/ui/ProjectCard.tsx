@@ -13,16 +13,25 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       flex flex-col h-full
     ">
       {/* Status badge */}
-      <div className="px-4 py-2 bg-gray-800/80 text-sm font-medium text-center">
+      <div 
+        className="px-4 py-2 bg-gray-800/80 text-sm font-medium text-center"
+        style={{ fontFamily: "var(--font-body)" }}
+      >
         {project.status === 'Completed' ? 'Completed' : project.status}
       </div>
 
       <div className="p-6 flex flex-col flex-grow space-y-4">
-        <h3 className="text-2xl font-bold text-white">
+        <h3 
+          className="text-2xl font-bold text-white"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
           {project.title}
         </h3>
 
-        <p className="text-gray-300 flex-grow">
+        <p 
+          className="text-gray-300 flex-grow"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
           {project.shortDescription}
         </p>
 
@@ -32,6 +41,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             <span
               key={tech}
               className="px-3 py-1 text-xs rounded-full bg-gray-800 text-blue-300 border border-blue-500/30"
+              style={{ fontFamily: "var(--font-mono)" }}
             >
               {tech}
             </span>

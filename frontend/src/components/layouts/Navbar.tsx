@@ -23,6 +23,7 @@ const NavLink = ({ href, label, onClick, className = '' }: NavLinkProps) => (
       relative group
       ${className}
     `}
+    style={{ fontFamily: "var(--font-body)" }}
     aria-current={href === window.location.hash ? 'page' : undefined}
   >
     {label}
@@ -66,6 +67,7 @@ const Navbar = () => {
           <a
             href="/"
             className="text-white font-bold text-xl tracking-tight hover:opacity-80 transition-opacity"
+            style={{ fontFamily: "var(--font-display)" }}
           >
             Devesh<span className="text-blue-500">.</span>
           </a>
@@ -78,6 +80,7 @@ const Navbar = () => {
             <a
               href="#contact"
               className="ml-4 px-5 py-2 text-sm font-medium text-black bg-white rounded-md hover:bg-zinc-200 transition-colors"
+              style={{ fontFamily: "var(--font-body)" }}
             >
               Hire Me
             </a>

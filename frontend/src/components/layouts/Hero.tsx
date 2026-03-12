@@ -1,24 +1,38 @@
 // src/components/sections/Hero.tsx
 
+import Profile from "../ui/Profile";
+import Card from "../ui/Social";
+
 const Hero = () => {
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden bg-black"
+    <section id="hero"
+      className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden bg-[#050508]"
     >
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/40 via-transparent to-zinc-900/20" />
+      {/* Main gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-950/30 via-[#050508] to-purple-950/20" />
       
-      {/* Accent glow - positioned to the right */}
-      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-blue-600/[0.04] rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-600/[0.03] rounded-full blur-3xl" />
+      {/* Top spotlight */}
+      <div className="absolute top-0 left-1/4 w-[800px] h-[400px] bg-blue-500/[0.07] rounded-full blur-[120px]" />
+      
+      {/* Right side glow */}
+      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-blue-600/[0.06] rounded-full blur-[100px]" />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-600/[0.05] rounded-full blur-[80px]" />
+      
+      {/* Bottom accent */}
+      <div className="absolute bottom-0 left-0 w-full h-[300px] bg-gradient-to-t from-blue-950/20 via-transparent to-transparent" />
       
       {/* Grid texture */}
-      <div 
-        className="absolute inset-0 opacity-[0.02]"
+      <div className="absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-          backgroundSize: '60px 60px'
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+          backgroundSize: '50px 50px'
+        }}
+      />
+      
+      {/* Noise texture overlay */}
+      <div className="absolute inset-0 opacity-[0.015]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
 
@@ -35,11 +49,17 @@ const Hero = () => {
 
           {/* Main heading */}
           <div className="space-y-4">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[0.9]">
+            <h1 
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[0.9]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               Devesh
               <span className="text-blue-500">.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-zinc-400 font-light">
+            <p 
+              className="text-xl md:text-2xl text-zinc-400 font-light tracking-wide"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
               Full-Stack Developer
             </p>
           </div>
@@ -53,17 +73,17 @@ const Hero = () => {
           {/* Quick stats */}
           <div className="flex items-center gap-8 py-2">
             <div>
-              <p className="text-2xl md:text-3xl font-bold text-white">5+</p>
-              <p className="text-xs text-zinc-600 uppercase tracking-wider">Projects</p>
+              <p className="text-2xl md:text-3xl font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>5+</p>
+              <p className="text-xs text-zinc-600 uppercase tracking-wider" style={{ fontFamily: "var(--font-body)" }}>Projects</p>
             </div>
             <div className="w-px h-10 bg-zinc-800" />
             <div>
-              <p className="text-2xl md:text-3xl font-bold text-white">10+</p>
-              <p className="text-xs text-zinc-600 uppercase tracking-wider">Technologies</p>
+              <p className="text-2xl md:text-3xl font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>10+</p>
+              <p className="text-xs text-zinc-600 uppercase tracking-wider" style={{ fontFamily: "var(--font-body)" }}>Technologies</p>
             </div>
             <div className="w-px h-10 bg-zinc-800" />
             <div>
-              <p className="text-2xl md:text-3xl font-bold text-white">2026</p>
+              <p className="text-2xl md:text-3xl font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>2029</p>
               <p className="text-xs text-zinc-600 uppercase tracking-wider">Grad Year</p>
             </div>
           </div>
@@ -102,10 +122,14 @@ const Hero = () => {
               ))}
             </div>
           </div>
+
+          
         </div>
 
         
       </div>
+
+      <Profile/>
     </section>
   );
 };

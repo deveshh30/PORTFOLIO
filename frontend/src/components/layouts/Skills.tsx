@@ -12,16 +12,25 @@ function SkillItem({ skill }: { skill: Skill }) {
       {/* Optional icon – you can use heroicons or lucide later */}
       <div className={`w-10 h-10 rounded-md flex items-center justify-center bg-gradient-to-br from-${skill.color}/20 to-transparent`}>
         {/* Placeholder icon */}
-        <span className="text-xl font-bold text-gray-400 group-hover:text-white/80 transition-colors">
+        <span 
+          className="text-xl font-bold text-gray-400 group-hover:text-white/80 transition-colors"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
           {skill.name[0]}
         </span>
       </div>
 
       <div className="flex-1 space-y-1">
-        <h4 className="font-medium text-white group-hover:text-blue-400 transition-colors">
+        <h4 
+          className="font-medium text-white group-hover:text-blue-400 transition-colors"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
           {skill.name}
         </h4>
-        <p className="text-sm text-gray-400">
+        <p 
+          className="text-sm text-gray-400"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
           {skill.evidence}
         </p>
         {skill.level && (
@@ -46,7 +55,10 @@ export default function Skills() {
   return (
     <section id="skills" className="py-20 px-6 bg-gray-950/30">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+        <h2 
+          className="text-4xl md:text-5xl font-bold text-center mb-16"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
           Technical <span className="text-blue-500">Skills</span>
         </h2>
 
@@ -58,7 +70,10 @@ export default function Skills() {
 
             return (
               <div key={category}>
-                <h3 className="text-2xl font-semibold mb-6 text-gray-200">
+                <h3 
+                  className="text-2xl font-semibold mb-6 text-gray-200"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
                   {category}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
