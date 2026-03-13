@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "build": "npm --prefix frontend install && npm --prefix frontend run build",
+    "dev": "npm --prefix frontend run dev",
+    "lint": "npm --prefix frontend run lint",
+    "preview": "npm --prefix frontend run preview"
+  },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
     "tailwindcss": "^4.2.1"
